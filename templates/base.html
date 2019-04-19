@@ -1,0 +1,144 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="{% static 'base/css/simple-sidebar.css' %}"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{#    Slider#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js" ></script>
+
+    <!--Plugin CSS file with desired skin-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css"/>
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--Plugin JavaScript file-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
+
+
+
+    <title>Anything.</title>
+    <link rel="icon" type="image/png" href="/static/images/logo_white.png" />
+    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+
+
+
+    <style type="text/css">
+        html,
+        body {
+             height:100%;
+             width:100%;
+            }
+        .avatar {
+            vertical-align: middle;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .avatar-small {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        div.form-1 {
+            max-width: 700px;
+            margin: auto;
+        }
+        div.home {
+            margin: 50px;
+        }
+        .profile-container {
+            display: flex;
+            margin: 0 auto;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body class="body" style="background-color:#f6f6f6">
+        <nav class="navbar navbar-dark bg-dark justify-content-between">
+            <a class="navbar-brand" href="/">
+                <img src="/static/images/logo_red.png" width="50" height="50" class="d-inline-block align-center" alt="">
+                Anything.
+            </a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div id="wrapper">
+
+
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                        Dashboard
+                    </a>
+                </li>
+				{% if user.is_authenticated %}
+				 <!-- <li>User: {{ user.get_username }}</li> -->
+                    <li><a href="/upload">Upload</a> </li>
+				 <li><a href="/users/logout">Logout</a></li>
+			    {% else %}
+				 <li><a href="/users/login">Login</a></li>
+				 <li><a href="/users/signup">Register</a></li>
+			    {% endif %}
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+            <a href="#menu-toggle" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off" id="menu-toggle">
+                Menu
+            </a>
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    {% load staticfiles %}
+    <script src="{% static 'base/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+        $("#menu-toggle").toggleClass("toggled");
+    });
+    </script>
+
+    {% block javascript %} {%endblock%}
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+.leaflet-right {
+    left: 5px !important;
+    right: unset !important;
+}
+
+.leaflet-routing-container {
+    margin-top: 100px !important;
+}
+
+.leaflet-routing-alt, .leaflet-routing-geocoders, .leaflet-routing-error {
+    max-height: 600px !important;
+}
+
+.leaflet-routing-alt h2, .leaflet-routing-alt h3{
+    display: none;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+    display: none;
+}
+
+
+
+
