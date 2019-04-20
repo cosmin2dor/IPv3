@@ -37,7 +37,22 @@
             <div class="card-body">
                 <h5 class="card-title">{{ photo.description }}</h5>
                 <p class="card-text">{{ photo.keywords }}</p>
-                <a class="btn btn-primary", data-toggle="button" aria-pressed="false" autocomplete="on">Like <span class="badge badge-light">{{ photo.likes.count }}</span></a>
+                <a href="/" class="btn btn-primary btn-danger text-white" onclick="likeButton();"><span class="glyphicon glyphicon-thumbs-up"></span><font> Like <span class="badge badge-light">{{ photo.likes.count }}</span></a>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+                <script type="text/javascript">
+                    function likeButton() {
+                        $.ajax(
+                        {
+                            type:"GET",
+                            url: "/like/{{ photo.id }}",
+                            data:{},
+                            success: function( data )
+                            {
+                                console.log("liked");
+                            }
+                         })
+                    }
+            </script>
             </div>
         </div>
         </div>

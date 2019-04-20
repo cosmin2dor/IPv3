@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from users.models import CustomUser
+from photo.models import PhotoModel
 from django.http import JsonResponse
 
 from .forms import CustomUserCreationForm

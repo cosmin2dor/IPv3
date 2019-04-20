@@ -7,7 +7,7 @@ https://gist.github.com/frfahim/73c0fad6350332cef7a653bcd762f08d
 >source venv/bin/activate
 
 ### Install Django and dependencies
->pip install -r requirments.txt
+>pip install -r requirements.txt
 
 ### Migrate database
 >python manange.py makemigrations

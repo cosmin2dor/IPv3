@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from photo.views import home_view, upload_view
+from photo.views import home_view, upload_view, like_action
 from users.views import validate_username
 
 urlpatterns = [
@@ -27,6 +27,7 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
     path('upload/', upload_view),
     path('ajax/validate_username/', validate_username, name='validate_username'),
+    path('like/<pk>/', like_action),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

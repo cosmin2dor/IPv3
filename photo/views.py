@@ -29,3 +29,17 @@ def upload_view(request):
     else:
         form = PhotoForm()
     return render(request, "upload.html", {'form': form})
+
+
+def like_action(request, pk):
+    user = CustomUser.objects.get(id=request.user.id)
+
+    likes_field = PhotoModel.objects.get(pk=pk).likes
+    if likes_field.filter(pk=user.pk).exists():
+        print("remove like")
+        likes_field.remove(user)
+    else:
+        print("like added")
+        likes_field.add(user)
+
+    return redirect('home')
