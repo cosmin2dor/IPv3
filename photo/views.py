@@ -9,8 +9,14 @@ def home_view(request):
         return redirect('/users/login/')
 
     wall = PhotoModel.objects.all().order_by('-timestamp')
+    liked_photos = []
+    for photo in wall:
+        if photo.likes.filter(pk=request.user.id).exists():
+            liked_photos.append(photo.id)
 
-    return render(request, "home.html", {'wall': wall})
+    print(liked_photos)
+
+    return render(request, "home.html", {'wall': wall, 'likesTo': liked_photos})
 
 
 def upload_view(request):
@@ -35,11 +41,10 @@ def like_action(request, pk):
     user = CustomUser.objects.get(id=request.user.id)
 
     likes_field = PhotoModel.objects.get(pk=pk).likes
+
     if likes_field.filter(pk=user.pk).exists():
-        print("remove like")
         likes_field.remove(user)
     else:
-        print("like added")
         likes_field.add(user)
 
     return redirect('home')

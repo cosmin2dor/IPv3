@@ -37,18 +37,29 @@
             <div class="card-body">
                 <h5 class="card-title">{{ photo.description }}</h5>
                 <p class="card-text">{{ photo.keywords }}</p>
-                <a href="/" class="btn btn-primary btn-danger text-white" onclick="likeButton();"><span class="glyphicon glyphicon-thumbs-up"></span><font> Like <span class="badge badge-light">{{ photo.likes.count }}</span></a>
+                <span class="btn btn-primary btn-danger text-white" onclick="likeButton({{ photo.id }}, {% if photo.id in likesTo %}1{% else %}0{% endif %}, {{ photo.likes.count }})"><span class="glyphicon glyphicon-thumbs-up"></span>
+                    <span id="like_status_text{{ photo.id }}"> {% if photo.id in likesTo %} Unlike {% else %} Like {% endif %} </span>
+                    <span id="count{{ photo.id }}" class="badge badge-light">{{ photo.likes.count }}</span></span>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
                 <script type="text/javascript">
-                    function likeButton() {
+                    function likeButton(id, state, initial_count) {
                         $.ajax(
                         {
                             type:"GET",
-                            url: "/like/{{ photo.id }}",
+                            url: "/like/" + id,
                             data:{},
-                            success: function( data )
+                            success: function()
                             {
-                                console.log("liked");
+                                if (state === 0) {
+                                    initial_count++;
+                                    document.getElementById("like_status_text"+String(id)).innerText = "Unlike";
+                                } else {
+                                    initial_count--;
+                                    document.getElementById("like_status_text"+String(id)).innerText = "Like";
+                                }
+                                console.log(initial_count);
+                                document.getElementById("count"+String(id)).innerHTML = initial_count;
+                                console.log("/like/" + id);
                             }
                          })
                     }
