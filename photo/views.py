@@ -1,7 +1,18 @@
 from django.shortcuts import render, redirect
-from .models import PhotoModel
-from .forms import PhotoForm
+from .models import PhotoModel, Comment
+from .forms import PhotoForm, CommentForm
 from users.models import CustomUser
+
+
+def comment_action(request, pk):
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = Comment()
+        comment.text = form.cleaned_data['text']
+        comment.posted_by = request.user
+        comment.posted_in = PhotoModel.objects.filter(pk=pk).first()
+        comment.save()
+    return redirect('home')
 
 
 def home_view(request):
@@ -14,9 +25,7 @@ def home_view(request):
         if photo.likes.filter(pk=request.user.id).exists():
             liked_photos.append(photo.id)
 
-    print(liked_photos)
-
-    return render(request, "home.html", {'wall': wall, 'likesTo': liked_photos})
+    return render(request, "home.html", {'wall': wall, 'likesTo': liked_photos, 'form': CommentForm()})
 
 
 def upload_view(request):

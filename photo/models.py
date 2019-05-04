@@ -10,3 +10,8 @@ class PhotoModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
+
+class Comment(models.Model):
+    text = models.CharField(max_length=200, blank=False, help_text="Add a comment")
+    posted_by = models.ForeignKey(CustomUser, related_name='posted_comments', on_delete=models.CASCADE)
+    posted_in = models.ForeignKey(PhotoModel, related_name='comments', on_delete=models.CASCADE)
